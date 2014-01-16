@@ -7,7 +7,7 @@ class ApplicationWithMail < Sinatra::Base;end
 def valid_params
   { plain: 'some text',
     headers: { Subject: 'some subject',
-               To: 'Julia Child <child@child.net>'}
+               From: 'Julia Child <child@child.net>'}
   }
 end
 

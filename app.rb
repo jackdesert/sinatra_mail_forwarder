@@ -21,7 +21,7 @@ end
 
 post '/messages' do
   body = params['plain']
-  from = params['headers']['To']
+  from = params['headers']['From']
   to = '2083666059@tmomail.net'
   subject = params['headers']['Subject']
   ApplicationWithMail.email(:from => from, :to => to, :subject => subject, :body=>body)
