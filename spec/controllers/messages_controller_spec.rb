@@ -14,10 +14,10 @@ end
 describe 'the controller' do
   let(:browser) { Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application)) }
   it 'returns 200' do
-    mock(ApplicationWithMail).email(:from=>"Julia Child <child@child.net>", 
-                                    :to=>"2083666059@tmomail.net", 
-                                    :subject=>"some subject", 
-                                    :body=>"some text")
+    mock(ApplicationWithMail).email(from: ApplicationWithMail::FROM, 
+                                    to: ApplicationWithMail::TO, 
+                                    subject: "some subject", 
+                                    body: "(from Julia Child <child@child.net>)\nsome text")
     browser.post '/messages', valid_params
   end
 end

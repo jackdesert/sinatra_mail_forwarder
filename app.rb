@@ -5,12 +5,14 @@ require 'padrino-mailer'
 set :port, 8852
 
 class ApplicationWithMail < Sinatra::Base
-  PASSWORD = `cat config/password`
+  PASSWORD = YAML.load_file('config/email.yml')['password']
+  TO = '2083666059@tmomail.net'
+  FROM = 'loellingite@yahoo.com'
 
   set :delivery_method, :smtp => { 
-    :address              => "smtp.gmail.com",
+    :address              => "smtp.mail.yahoo.com",
     :port                 => 587,
-    :user_name            => 'jackdesert@gmail.com',
+    :user_name            => FROM,
     :password             => PASSWORD,
     :authentication       => :plain,
     :enable_starttls_auto => true  
@@ -20,9 +22,20 @@ class ApplicationWithMail < Sinatra::Base
 end
 
 post '/messages' do
-  body = params['plain']
-  from = params['headers']['From']
-  to = '2083666059@tmomail.net'
+  original_from = params['headers']['From']
+  body = "(from #{original_from})\n"
+  body += params['plain']
   subject = params['headers']['Subject']
-  ApplicationWithMail.email(:from => from, :to => to, :subject => subject, :body=>body)
+  ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
+                            :to => ApplicationWithMail::TO, 
+                            :subject => subject, 
+                            :body=>body)
 end
+
+def manual(subject, body)
+  ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
+                            :to => ApplicationWithMail::TO, 
+                            :subject => subject, 
+                            :body=>body)
+end
+
