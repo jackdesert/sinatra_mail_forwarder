@@ -23,12 +23,13 @@ end
 
 post '/messages' do
   original_from = params['headers']['From']
-  body = "(from #{original_from})\n"
+  original_subject = params['headers']['Subject']
+  new_subject = "From: #{original_from}"
+  body = "#{original_subject} / "
   body += params['plain']
-  subject = params['headers']['Subject']
   ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
                             :to => ApplicationWithMail::TO, 
-                            :subject => subject, 
+                            :subject => new_subject, 
                             :body=>body)
 end
 
