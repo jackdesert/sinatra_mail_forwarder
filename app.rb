@@ -5,7 +5,8 @@ require 'padrino-mailer'
 set :port, 8852
 
 class ApplicationWithMail < Sinatra::Base
-  PASSWORD = YAML.load_file('config/email.yml')['password']
+  config_file = File.expand_path('config/email.yml', File.dirname(__FILE__))
+  PASSWORD = YAML.load_file(config_file)['password']
   TO = '2083666059@tmomail.net'
   FROM = 'loellingite@yahoo.com'
 

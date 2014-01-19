@@ -2,3 +2,4 @@
 *.swo
 tmp
 config/email.yml
+logfile
