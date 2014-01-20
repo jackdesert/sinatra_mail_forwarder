@@ -29,7 +29,13 @@ post '/messages' do
   new_subject = "From: #{original_from}"
   body = "#{original_subject} / "
   body += params['plain']
-  manual(new_subject, body)
+  begin
+    manual(new_subject, body)
+  rescue
+    puts "UTTER FAILURE *************************************************************\n\n"
+    puts 'now printing params from failure'
+    puts params
+  end
 end
 
 def manual(subject, body)
