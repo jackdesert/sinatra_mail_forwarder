@@ -28,13 +28,11 @@ post '/messages' do
   new_subject = "From: #{original_from}"
   body = "#{original_subject} / "
   body += params['plain']
-  ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
-                            :to => ApplicationWithMail::TO, 
-                            :subject => new_subject, 
-                            :body=>body)
+  manual(new_subject, body)
 end
 
 def manual(subject, body)
+  puts "Sending email with subject \"#{subject}\" and body \"#{body}\""
   ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
                             :to => ApplicationWithMail::TO, 
                             :subject => subject, 
