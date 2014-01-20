@@ -43,7 +43,6 @@ def manual(subject, body)
   ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
                             :to => ApplicationWithMail::TO, 
                             :subject => subject, 
-                            :body=>body)
-                            #:charset => 'UTF-8')
+                            :body=>body.strip)
 end
 
