@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 require 'rack/test'
 require_relative '../../app'
@@ -5,9 +6,9 @@ require_relative '../../app'
 class ApplicationWithMail < Sinatra::Base;end
 
 def valid_params
-  { plain: 'some text',
-    headers: { Subject: 'some subject',
-               From: 'Julia Child <child@child.net>'}
+  { plain: "some fäncy inpüts",
+    headers: { Subject: 'söme subject',
+               From: 'Julia Chḯld <child@child.net>'}
   }
 end
 
@@ -16,8 +17,8 @@ describe 'the controller' do
   it 'returns 200' do
     mock(ApplicationWithMail).email(from: ApplicationWithMail::FROM, 
                                     to: ApplicationWithMail::TO, 
-                                    subject: "some subject", 
-                                    body: "(from Julia Child <child@child.net>)\nsome text")
+                                    :subject=>"From: Julia Chḯld <child@child.net>", 
+                                    body: "söme subject / some fäncy inpüts")
     browser.post '/messages', valid_params
   end
 end

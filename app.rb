@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'sinatra'
 require 'pry'
 require 'padrino-mailer'
@@ -37,5 +38,6 @@ def manual(subject, body)
                             :to => ApplicationWithMail::TO, 
                             :subject => subject, 
                             :body=>body)
+                            #:charset => 'UTF-8')
 end
 
