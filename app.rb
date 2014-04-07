@@ -36,6 +36,7 @@ post '/messages' do
     puts "UTTER FAILURE *************************************************************\n\n"
     puts 'now printing params from failure'
     puts params
+    manual 'failure', "from #{original_from}"
   end
 end
 
