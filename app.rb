@@ -30,9 +30,20 @@ post '/messages' do
   new_subject = "From: #{original_from}"
   body = "#{original_subject} / "
   body += params['plain']
-  begin
-    manual(new_subject, body)
-  rescue
+
+  successful_send = false
+  100.times do |count|
+    begin
+      manual(new_subject, body)
+      successful_send = true
+      puts "Sent on #{count}th attempt"
+      break
+    rescue
+      puts "Failed to send message with subject '#{new_subject}'"
+    end
+  end
+
+  unless successful_send
     puts "UTTER FAILURE *************************************************************\n\n"
     puts 'now printing params from failure'
     puts params
