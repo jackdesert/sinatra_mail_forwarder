@@ -2,6 +2,7 @@
 require 'sinatra'
 require 'pry'
 require 'padrino-mailer'
+require './models/formatter'
 
 set :port, 8852
 
@@ -39,10 +40,11 @@ post '/messages' do
 end
 
 def manual(subject, body)
+  body = Formatter.no_double_arrows(body.strip)
   puts "Sending email with subject \"#{subject}\" and body \"#{body}\""
   ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
                             :to => ApplicationWithMail::TO, 
                             :subject => subject, 
-                            :body=>body.strip)
+                            :body=>body)
 end
 

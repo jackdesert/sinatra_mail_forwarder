@@ -4,6 +4,7 @@ require 'sinatra'
 require 'pry'
 require 'rspec'
 require 'rr'
+require './models/formatter'
 
 RSpec.configure do |config|
 
