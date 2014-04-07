@@ -2,7 +2,7 @@
 require 'sinatra'
 require 'pry'
 require 'padrino-mailer'
-require './models/formatter'
+require File.expand_path("../models/formatter", __FILE__)
 
 set :port, 8852
 
