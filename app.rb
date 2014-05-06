@@ -12,13 +12,13 @@ class ApplicationWithMail < Sinatra::Base
   TO = '2083666059@tmomail.net'
   FROM = 'loellingite@yahoo.com'
 
-  set :delivery_method, :smtp => { 
+  set :delivery_method, :smtp => {
     :address              => "smtp.mail.yahoo.com",
     :port                 => 587,
     :user_name            => FROM,
     :password             => PASSWORD,
     :authentication       => :plain,
-    :enable_starttls_auto => true  
+    :enable_starttls_auto => true
   }
 
   register Padrino::Mailer
@@ -53,10 +53,11 @@ end
 
 def manual(subject, body)
   body = Formatter.no_double_arrows(body.strip)
+  body.slice(0, 299)
   puts "Sending email with subject \"#{subject}\" and body \"#{body}\""
-  ApplicationWithMail.email(:from => ApplicationWithMail::FROM, 
-                            :to => ApplicationWithMail::TO, 
-                            :subject => subject, 
+  ApplicationWithMail.email(:from => ApplicationWithMail::FROM,
+                            :to => ApplicationWithMail::TO,
+                            :subject => subject,
                             :body=>body)
 end
 
