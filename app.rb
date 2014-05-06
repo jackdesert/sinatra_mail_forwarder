@@ -53,7 +53,7 @@ end
 
 def manual(subject, body)
   body = Formatter.no_double_arrows(body.strip)
-  body.slice(0, 299)
+  body.slice!(0, 299)
   puts "Sending email with subject \"#{subject}\" and body \"#{body}\""
   ApplicationWithMail.email(:from => ApplicationWithMail::FROM,
                             :to => ApplicationWithMail::TO,
