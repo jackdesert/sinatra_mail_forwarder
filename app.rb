@@ -8,12 +8,14 @@ set :port, 8852
 
 class ApplicationWithMail < Sinatra::Base
   config_file = File.expand_path('config/email.yml', File.dirname(__FILE__))
-  PASSWORD = YAML.load_file(config_file)['password']
+  ACCOUNT = 'yahoo'
+  PASSWORD = YAML.load_file(config_file)[ACCOUNT]['password']
+  FROM = YAML.load_file(config_file)[ACCOUNT]['from_email']
+  SMTP_ADDRESS = YAML.load_file(config_file)[ACCOUNT]['smtp_address']
   TO = '2083666059@tmomail.net'
-  FROM = 'loellingite@yahoo.com'
 
   set :delivery_method, :smtp => {
-    :address              => "smtp.mail.yahoo.com",
+    :address              => SMTP_ADDRESS,
     :port                 => 587,
     :user_name            => FROM,
     :password             => PASSWORD,
@@ -53,7 +55,7 @@ end
 
 def manual(subject, body)
   body = Formatter.no_double_arrows(body.strip)
-  body.slice!(0, 299)
+  body = body.slice(0,299)
   puts "Sending email with subject \"#{subject}\" and body \"#{body}\""
   ApplicationWithMail.email(:from => ApplicationWithMail::FROM,
                             :to => ApplicationWithMail::TO,

@@ -1,1 +1,9 @@
-password: fancy_password_that_i_wrote
+yahoo:
+	from_email: 'loellingite@yahoo.com'
+	password: fancy_password_that_i_wrote
+	smtp_address: "smtp.mail.yahoo.com"
+
+gmail: 
+	from_email: 'jackdesert@gmail.com'
+	password: fancy_password_that_i_wrote
+	smtp_address: "smtp.gmail.com"
